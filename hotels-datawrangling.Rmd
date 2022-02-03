@@ -48,7 +48,7 @@ try out.
 
 Ans: 6174 bookings
 
-```{r travel-whim, eval=FALSE}
+```{r travel-whim, eval=TRUE}
 hotels %>%
   filter(country != "USA", 
     lead_time < 1) %>%
@@ -69,7 +69,7 @@ try out.
 
 Ans: 9332 bookings
 
-```{r some-children, eval=FALSE}
+```{r some-children, eval=TRUE}
 hotels %>%
   filter(children >= 1 | babies >= 1) %>%
   select(children, babies)

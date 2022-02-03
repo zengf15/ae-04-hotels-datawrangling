@@ -742,6 +742,20 @@ hotels &lt;- read_csv(&quot;./data/hotels.csv&quot;)</code></pre>
   filter(country != &quot;USA&quot;, 
     lead_time &lt; 1) %&gt;%
   select(country, lead_time)</code></pre>
+<pre><code>## # A tibble: 6,174 x 2
+##    country lead_time
+##    &lt;chr&gt;       &lt;dbl&gt;
+##  1 PRT             0
+##  2 FRA             0
+##  3 PRT             0
+##  4 PRT             0
+##  5 PRT             0
+##  6 ESP             0
+##  7 PRT             0
+##  8 GBR             0
+##  9 PRT             0
+## 10 GBR             0
+## # ... with 6,164 more rows</code></pre>
 </div>
 <div id="exercise-3." class="section level3">
 <h3>Exercise 3.</h3>
@@ -756,6 +770,20 @@ hotels &lt;- read_csv(&quot;./data/hotels.csv&quot;)</code></pre>
 <pre class="r"><code>hotels %&gt;%
   filter(children &gt;= 1 | babies &gt;= 1) %&gt;%
   select(children, babies)</code></pre>
+<pre><code>## # A tibble: 9,332 x 2
+##    children babies
+##       &lt;dbl&gt;  &lt;dbl&gt;
+##  1        1      0
+##  2        2      0
+##  3        2      0
+##  4        2      0
+##  5        1      0
+##  6        1      0
+##  7        2      0
+##  8        2      0
+##  9        0      1
+## 10        0      1
+## # ... with 9,322 more rows</code></pre>
 </div>
 <div id="exercise-4." class="section level3">
 <h3>Exercise 4.</h3>
