@@ -46,12 +46,13 @@ from the US (`country` code `"USA"`) and the `lead_time` is less than 1 day.
 **Note:** You will need to set `eval=TRUE` when you have an answer you want to 
 try out.
 
+Ans: 6174 bookings
+
 ```{r travel-whim, eval=FALSE}
 hotels %>%
-  filter(
-    country ____ "USA", 
-    lead_time ____ ____
-    )
+  filter(country != "USA", 
+    lead_time < 1) %>%
+  select(country, lead_time)
 ```
 
 ### Exercise 3.
@@ -66,11 +67,12 @@ In the following chunk, replace
 **Note:** You will need to set `eval=TRUE` when you have an answer you want to 
 try out.
 
+Ans: 9332 bookings
+
 ```{r some-children, eval=FALSE}
 hotels %>%
-  filter(
-    children [AT LEAST] 1 [OR] babies [AT LEAST] 1
-    )
+  filter(children >= 1 | babies >= 1) %>%
+  select(children, babies)
 ```
 
 ### Exercise 4.
@@ -81,14 +83,18 @@ number of bookings in resort hotels that have more than 1 child **or** baby
 in the room? Then, do the same for city hotels, and compare the numbers of 
 rows in the resulting filtered data frames.
 
+Ans: City (2091 bookings) vs. Resort (1655)
+
 ```{r resort-children}
-# add code here
-# pay attention to correctness and code style
+hotels %>%
+  filter (hotel == "Resort Hotel",
+          children > 1 | babies > 1)
 ```
 
 ```{r city-children}
-# add code here
-# pay attention to correctness and code style
+hotels %>%
+  filter (hotel == "City Hotel",
+          children > 1 | babies > 1)
 ```
 
 ### Exercise 5.
@@ -103,9 +109,11 @@ Your label should be short, informative, and shouldn't include spaces. It also
 shouldn't repeat a previous label, otherwise R Markdown will give you an 
 error about repeated R chunk labels.
 
-```{r label-me-1}
-# add code here
-# pay attention to correctness and code style
+Ans: Most common is 2 adults. I am surprised to see 10-55 adults per booking. And there are 403 bookings with no adults.
+
+```{r number-of-adults}
+hotels %>%
+  count(adults, sort=TRUE)
 ```
 
 ### Exercise 6.
@@ -116,9 +124,11 @@ reveal about the surprising results you spotted in the previous exercise?
 
 **Note:** Don't forget to label your R chunk as well (where it says `label-me-2`). 
 
-```{r label-me-2}
-# add code here
-# pay attention to correctness and code style
+Ans: 44k cancellations, 75k non-cancellations
+
+```{r canceled-bookings}
+hotels %>%
+  count(is_canceled == 1)
 ```
 
 ### Exercise 7.
@@ -127,9 +137,15 @@ Calculate minimum, mean, median, and maximum average daily rate (`adr`) grouped
 by `hotel` type so that you can get these statistics separately for resort and 
 city hotels. Which type of hotel is higher, on average? 
 
-```{r label-me-3}
-# add code here
-# pay attention to correctness and code style
+Ans: City
+
+```{r summary}
+hotels %>%
+  group_by(hotel) %>%
+  summarize (min_adr = min(adr),
+             mean_adr = mean(adr),
+             median_adr = median(adr),
+             max_adr = max(adr))
 ```
 
 ### Exercise 8.
@@ -144,9 +160,14 @@ preferably you should identify them in a reproducible way with some code.
 **Hint:** For example, you can `filter` for the given `adr` amounts and 
 `select` the relevant columns.
 
-```{r label-me-4}
-# add code here
-# pay attention to correctness and code style
+```{r strange-values}
+hotels %>%
+  filter(adr == -6.38) %>%
+  select(hotel, arrival_date_year, arrival_date_month, adults, children, babies)
+
+hotels %>%
+  filter(adr == 5400) %>%
+  select(hotel, arrival_date_year, arrival_date_month, adults, children, babies)
 ```
 
 
